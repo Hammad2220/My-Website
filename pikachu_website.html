@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive 2D Pikachu</title>
+  <style>
+    body {
+      /*background-color: #5cda90;*/
+      background-image: url('https://wallpapers-clan.com/wp-content/uploads/2024/05/pokemon-ash-ready-adventure-desktop-wallpaper-cover.jpg');
+      background-position: -83% 30%;
+     display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .pikachu {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .ear {
+      width: 30px;
+      height: 90px;
+      background: #ffc831;
+      border-radius: 50% 50% 0 0;
+      position: absolute;
+      top: -50px;
+    }
+
+    .ear::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 30px;
+      background: black;
+      border-radius: 30px 30px 0 0;
+    }
+
+    .ear.left {
+      left: 20px;
+      transform-origin: bottom center;
+      animation: wave-reverse 2s infinite ease-in-out;
+    }
+
+    .ear.right {
+      right: 20px;
+      transform-origin: bottom center;
+      animation: wave 2s infinite ease-in-out;
+    }
+
+    @keyframes wave {
+      0%   { transform: rotate(15deg); }
+      25%  { transform: rotate(30deg); }
+      50%  { transform: rotate(15deg); }
+      75%  { transform: rotate(5deg); }
+      100% { transform: rotate(15deg); }
+    }
+
+    @keyframes wave-reverse {
+      0%   { transform: rotate(-15deg); }
+      25%  { transform: rotate(-30deg); }
+      50%  { transform: rotate(-15deg); }
+      75%  { transform: rotate(-5deg); }
+      100% { transform: rotate(-15deg); }
+    }
+
+    .eye {
+      width: 25px;
+      height: 25px;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+      top: 60px;
+      animation: blink 3s infinite;
+      overflow: hidden;
+    }
+
+    .eye::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 6px;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .eye.left {
+      left: 40px;
+    }
+
+    .eye.right {
+      right: 40px;
+    }
+
+    @keyframes blink {
+      0%, 95%, 100% { height: 25px; }
+      96%, 98% { height: 5px; }
+    }
+
+    .cheek {
+      width: 30px;
+      height: 30px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 50px;
+    }
+
+    .cheek.left {
+      left: 30px;
+    }
+
+    .cheek.right {
+      right: 30px;
+    }
+
+    .mouth-inner {
+      width: 45px;
+      height: 15%;
+      background-color: rgb(255, 49, 49);
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 10px 10px 40px 40px;
+      z-index: 1;
+      transition: height 0.3s ease;
+    }
+
+    .tongue {
+      width: 32px;
+      height: 13px;
+      background-color: #f7a9a0;
+      border-radius: 3px 3px 10px 10px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: opacity 0.3s ease;
+    
+    }
+
+    .nose {
+      width: 2%;
+      height: 0px;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid black;
+      position: absolute;
+      top: 95px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50% 50% 0%;
+      z-index: 5;
+    }
+
+    .nose:hover {
+      animation: wiggle 0.6s ease-in-out;
+    }
+
+    @keyframes wiggle {
+      0%   { transform: translateX(-50%) rotate(0deg); }
+      25%  { transform: translateX(-50%) rotate(-10deg); }
+      50%  { transform: translateX(-50%) rotate(10deg); }
+      75%  { transform: translateX(-50%) rotate(-5deg); }
+      100% { transform: translateX(-50%) rotate(0deg); }
+    }
+
+    .pikachu:hover {
+      animation: head-wiggle 0.8s ease-in-out infinite;
+    }
+
+    .head {
+      background: #ffc831;
+      width: 200px;
+      height: 180px;
+      border-radius: 50% 50% 45% 45%;
+      position: relative;
+      z-index: 0;
+    }
+
+    .body {
+      background: #ffc831;
+      width: 190px;
+      height: 180px;
+      top: -50px;
+      left:  7px;
+      border-radius: 50% 50% 5% 5%;
+      position: relative;
+      z-index: -2;
+    }
+
+    .leg1 {
+      background: #ffc831;
+      width: 55px;
+      height: 75px;
+      top: -70px;
+      right : -20px;
+      border-radius: 0% 0% 25% 25%;
+      position: relative;
+      z-index: -5;
+    }
+
+    .leg2 {
+      background: #ffc831;
+      width:55px;
+      height: 75px;
+      top: -145px;
+      left:  130px;
+      border-radius: 0% 0% 25% 25%;
+      position: relative;
+      z-index: -5;
+    }
+
+    .hand1 {
+      background: #ffc831;
+      width: 50px;
+      height: 110px;
+      top: -373px;
+      right: 30px;
+      border-radius: 50% 50% 800% 80px;
+      position: relative;
+      
+      animation: handwave 0.7s infinite ease-in-out;
+      z-index: -6;
+    }
+    @keyframes handwave {
+      0%   { transform: rotate(110deg); }
+      25%  { transform: rotate(120deg); }
+      50%  { transform: rotate(130deg); }
+      75%  { transform: rotate(120deg); }
+      100% { transform: rotate(110deg); }
+    }
+
+    .hand2 {
+      background: #ffc831;
+      width: 50px;
+      height: 110px;
+      top: -478px;
+      right: -173px;
+      border-radius: 50% 50% 800% 80px;
+      position: relative;
+      transform: rotate(-132deg) scaleX(-1);
+      z-index: -6;
+    }
+    @keyframes doodleWave {
+  0%   { transform: rotate(10deg) translateY(0); }
+  25%  { transform: rotate(-10deg) translateY(-1px); }
+  50%  { transform: rotate(5deg) translateY(1px); }
+  75%  { transform: rotate(-10deg) translateY(-0.5px); }
+  100% { transform: rotate(10deg) translateY(0); }
+}
+.line {
+  font-size: 50px;
+  top: -1000px;
+  right: 110px;
+  color: rgb(255, 215, 85);
+  position: relative;
+  transform: rotate(0deg) scaleX(1);
+  z-index: -2;
+  white-space: nowrap; /* 🔥 Keeps all letters in one line */
+  width: max-content;   /* Optional: Shrinks to fit content */
+}
+
+    .doodle-letter {
+  display: inline-block;
+  animation: doodleWave 3.5s ease-in-out infinite;
+}
+
+.doodle-letter:nth-child(1) { animation-delay: 0s; }
+.doodle-letter:nth-child(2) { animation-delay: 0.1s; }
+.doodle-letter:nth-child(3) { animation-delay: 0.2s; }
+.doodle-letter:nth-child(4) { animation-delay: 0.3s; }
+.doodle-letter:nth-child(5) { animation-delay: 0.4s; }
+.doodle-letter:nth-child(6) { animation-delay: 0.5s; }
+.doodle-letter:nth-child(7) { animation-delay: 0.6s; }
+
+
+    
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 0px red;
+      }
+      25% {
+        box-shadow: 0 0 15px 5px red;
+      }
+    }
+
+    .cheek.glow {
+      animation: glow 1.2s ease-in-out;
+    }
+    .tagline {
+      position: absolute;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 25px;
+      top: -350px;
+      left: -620px;
+    }
+    .The {
+      font-size: 52px;
+      position: relative;
+      top: 130px;
+      z-index: 0;
+    }
+    .Pokemon {
+      font-size: 53px;
+      position: relative;
+      top: 50px;
+      right: 4px;
+    }
+    .YouNeed {
+      font-size: 48px;
+      position: relative;
+      top: -30px;
+      right: -1px;
+    }
+    .pokeball_white {
+      
+  background: #ffffff;
+  width: 25.5px;
+  height: 25.5px;
+  border-radius: 50%;
+  position: relative; /* Allows you to use 'top', 'left', etc. */
+  top: -937px; /* Moves it 50px down */
+  left: 537.8px; /* Moves it 30px to the right */
+  z-index: 1;
+    }
+    .pokeball_red {
+      
+      background: #ff0000;
+      width: 100px;
+      height: 50px;
+      border-radius: 50px 50px 0 0;
+      position: relative; /* Allows you to use 'top', 'left', etc. */
+      top: -1000px; /* Moves it 50px down */
+      left: 500px; /* Moves it 30px to the right */
+        }
+        .pokeball_white2 {
+      
+      background: #ffffff;
+      width: 100px;
+      height: 50px;
+      border-radius: 0px 0px 50px 50px;
+      position: relative; /* Allows you to use 'top', 'left', etc. */
+      top: -1000px; /* Moves it 50px down */
+      left: 500px; /* Moves it 30px to the right */
+        }
+        .pokeball_line {
+      background: #000000;
+      width: 100px;
+      height: 10px;
+      position: relative;
+      top: -1055px; /* Moves it 50px down */
+      left: 500px;
+        }
+        .pokeball_black {
+          background: #000000;
+      width: 35px;
+      height: 35px;
+      position: relative;
+      border-radius: 50%;
+      top: -1077px; /* Moves it 50px down */
+      left: 532.5px;
+        }
+        .pokeball_bigblack {
+          background: #000000;
+      width: 120px;
+      height: 120px;
+      position: relative;
+      border-radius: 50%;
+      top: -1155px; /* Moves it 50px down */
+      left: 490px;
+      z-index: -1;
+        }
+        .pokeball_shade {
+          background: #1b0c0c;
+      width: 100px;
+      height: 20px;
+      position: relative;
+      border-radius: 50%;
+      top: -1165px; /* Moves it 50px down */
+      left: 500px;
+      z-index: -2;
+        }
+        .ola {
+          position: relative;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          top: -1160px;
+          right: 180px;
+          font-size: 60px;
+        }
+        .reserves {
+          color: #000000;
+          font-size: 18px;
+          white-space: nowrap;
+          position: relative;
+          top: -925px;
+        }
+  </style>
+</head>
+<body>
+  <div class="pikachu">
+  
+    <div class="head"></div>
+    <div class="ear left"></div>
+    <div class="ear right"></div>
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+    <div class="cheek left"></div>
+    <div class="cheek right"></div>
+    <div class="nose"></div>
+    <div class="mouth">
+      <div class="mouth-inner" id="mouth">
+        <div class="tongue" id="tongue"></div>
+      </div>
+    </div>
+    <div class="body"></div>
+    <div class="leg1"></div>
+    <div class="leg2"></div>
+    <div class="hand1"></div>
+    <div class="hand2"></div>
+    <div class="line">
+      <h1>
+        <h1><span class="doodle-letter">"P</span><span class="doodle-letter">i</span><span class="doodle-letter">k</span><span class="doodle-letter">a</span><span class="doodle-letter">c</span><span class="doodle-letter">h</span><span class="doodle-letter">u"</span></h1>
+      </h1>
+    </div>
+    <div class="tagline">
+    <div class="The"><h3><b>The</b></h3></div>
+     <div class="Pokemon"><h1><b>Pokemon</b></h1></div>
+      <div class="YouNeed"><h2><b>You Need!</b></h2></div>
+    </div>
+    <div class="pokeball_white"></div>
+    <div class="pokeball_red"></div>
+    <div class="pokeball_white2"></div>
+    <div class="pokeball_line"></div>
+    <div class="pokeball_black"></div>
+    <div class="pokeball_bigblack"></div>
+    <div class="pokeball_shade"></div>
+    <div class="ola"><b>Ola!</b></div>
+    <div class="reserves"><footer>
+      <p><b>© 2025 Hammad. All rights reserved.</b></p>
+    </footer>
+    </div>
+  </div>
+
+  <audio id="pikachu-sound" src="pikachu-sound.mp3" preload="auto"></audio>
+
+  <script>
+    const mouth = document.getElementById('mouth');
+    const tongue = document.getElementById('tongue');
+    const pikachuSound = document.getElementById('pikachu-sound');
+    const cheeks = document.querySelectorAll('.cheek');
+
+    let ready = true;
+
+    // Unlock audio on first click/tap
+    document.body.addEventListener('click', () => {
+      pikachuSound.play().catch(() => {});
+      pikachuSound.pause();
+      pikachuSound.currentTime = 0;
+    }, { once: true });
+
+    mouth.addEventListener('mouseenter', () => {
+      if (!ready) return;
+      ready = false;
+
+      // Close mouth
+      mouth.style.height = '0%';
+      tongue.style.opacity = '0';
+
+      // Stop current sound if playing
+      pikachuSound.pause();
+      pikachuSound.currentTime = 0;
+
+      // Start cheek glow
+      cheeks.forEach(cheek => cheek.classList.add('glow'));
+
+      setTimeout(() => {
+        // Open mouth
+        mouth.style.height = '15%';
+        tongue.style.opacity = '1';
+
+        // Play sound
+        pikachuSound.play().catch(e => {
+          console.warn("Audio play failed:", e);
+        });
+
+        // Remove glow after sound ends
+        const soundDuration = 1200; // Match glow to sound length (ms)
+        setTimeout(() => {
+          cheeks.forEach(cheek => cheek.classList.remove('glow'));
+          ready = true;
+        }, soundDuration);
+      }, 400);
+    });
+  </script>
+</body>
+</html>
+
