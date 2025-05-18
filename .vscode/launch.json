@@ -1,33 +1,27 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "(gdb) Attach",
-            "type": "cppdbg",
-            "request": "attach",
-            "program": "${workspaceFolder}/a.exe",  // Replace with the actual program path if different
-            "MIMode": "gdb",
-            "miDebuggerPath": "C:/mingw-w64/bin/gdb.exe",  // Update this with the actual path to your gdb.exe
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                },
-                {
-                    "description": "Set Disassembly Flavor to Intel",
-                    "text": "-gdb-set disassembly-flavor intel",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "build",  // Optional: Configure your build task
-            "miDebuggerServerAddress": "localhost:1234",  // Optional: Attach to a remote debugger (if applicable)
-            "stopAtEntry": false,  // Set this to true if you want to stop at the program's entry point
-            "externalConsole": false,  // Set this to true if you want to use an external console
-            "linux": {  // Optional: Configurations for Linux systems, adjust as necessary
-                "miDebuggerPath": "/usr/bin/gdb",
-                "program": "${workspaceFolder}/a.out"
-            }
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build yt_test with libcurl",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "C:/projects/helloworld/practice projects/YT_VideoDownloader/yt_test.cpp",
+        "-I", "C:/Users/Hammad/Downloads/Compressed/curl-8.13.0_4-win64-mingw/curl-8.13.0_4-win64-mingw/include",
+        "-L", "C:/Users/Hammad/Downloads/Compressed/curl-8.13.0_4-win64-mingw/curl-8.13.0_4-win64-mingw/lib",
+        "-lcurl",
+        "-o",
+        "C:/projects/helloworld/practice projects/YT_VideoDownloader/yt_test.exe"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "detail": "Compiles yt_test.cpp using libcurl"
+    }
+  ]
 }
+

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-#include <curl/curl.h> // for system()
 
 int main() {
     std::string url;
