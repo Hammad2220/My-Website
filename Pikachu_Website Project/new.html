@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merge Shapes with JS</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="canvas" width="400" height="400"></canvas>
+
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+
+  // Circle properties
+  const circle1 = { x: 100, y: 150, radius: 100 };
+  const circle2 = { x: 200, y: 150, radius: 100 };
+
+  // Fill color for the shapes (with transparency)
+  const color = "rgba(0, 0, 0, 0.3)";  // 30% opacity
+
+  // Function to draw a circle
+  function drawCircle(x, y, radius) {
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  // Function to check intersection of two circles and calculate the merged area
+  function checkIntersection(c1, c2) {
+    const dx = c2.x - c1.x;
+    const dy = c2.y - c1.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    // If the distance between the centers is less than the sum of the radii, they intersect
+    return distance < (c1.radius + c2.radius);
+  }
+
+  // Function to merge the overlapping area
+  function mergeShapes() {
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Set the fill color with reduced transparency
+    ctx.fillStyle = color;
+
+    // Draw the first circle
+    drawCircle(circle1.x, circle1.y, circle1.radius);
+
+    // Check if the circles intersect
+    if (checkIntersection(circle1, circle2)) {
+      // If they intersect, we can draw a new merged shape
+      // One approach is to use an ellipse to represent the merged region
+      const intersectionX = (circle1.x + circle2.x) / 2;
+      const intersectionY = (circle1.y + circle2.y) / 2;
+      const width = circle1.radius + circle2.radius - Math.abs(circle1.x - circle2.x);
+      const height = circle1.radius + circle2.radius - Math.abs(circle1.y - circle2.y);
+
+      // Draw the merged region as an ellipse
+      ctx.beginPath();
+      ctx.ellipse(intersectionX, intersectionY, width / 2, height / 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    // Draw the second circle
+    drawCircle(circle2.x, circle2.y, circle2.radius);
+  }
+
+  // Call the function to merge shapes
+  mergeShapes();
+</script>
+
+</body>
+</html>

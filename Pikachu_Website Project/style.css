@@ -1,0 +1,95 @@
+.ear1shade {
+    width: 40px;
+    height: 90px;
+    background: #0000006e;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -50px;
+    left : 40px;
+    z-index: -10;
+    transform-origin: bottom center;
+    animation: wave-reverse 2s infinite ease-in-out;}
+
+    .ear2shade {
+    width: 40px;
+    height: 110px;
+    background: #0000006e;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -30px;
+    left : 157.5px;
+    z-index: -10;
+    transform-origin: bottom center;
+    animation: wave 2s infinite ease-in-out;}
+    .headshade {
+        background: #0000006e;
+        width: 222.9px;
+        height: 200px;
+        border-radius: 50% 50% 45% 45%;
+        position: relative;
+        top: -1435px;
+        right: 8px;
+        z-index: -10;
+      }
+      .bodyshade {
+        background: #0000006e;
+        width: 215px;
+        height: 200px;
+        top: -1505px;
+        left:  -0px;
+        border-radius: 50% 50% 5% 13%;
+        position: relative;
+        z-index: -10;
+      }
+      .leg1shade {
+        background: #0000006e;
+        width: 73px;
+        height: 95px;
+        top: -1768px;
+        right : -15px;
+        border-radius: 0% 0% 25% 25%;
+        position: relative;
+        z-index: -10;
+      }
+      .leg2shade {
+        background: #0000006e;
+        width: 73px;
+        height: 95px;
+        top: -1862px;
+        right : -125px;
+        border-radius: 0% 0% 25% 25%;
+        position: relative;
+        z-index: -10;
+      }
+      .hand1shade {
+        background: #0000006e;
+        width: 70px;
+        height: 110px;
+        top: -1725px;
+        right: -18px;
+        border-radius: 50% 50% 800% 80px;
+        position: relative;
+        transform-origin: top center;
+        animation: hand1wave 0.7s infinite ease-in-out;
+        transform: rotate(132deg) scaleX(1);
+        z-index: -10;
+      }
+  
+      @keyframes hand1wave {
+        0%   { transform: rotate(105deg); }
+        25%  { transform: rotate(115deg); }
+        50%  { transform: rotate(125deg); }
+        75%  { transform: rotate(115deg); }
+        100% { transform: rotate(105deg); }
+      }
+      .hand2shade {
+        background: #0000006e;
+        width: 70px;
+        height: 110px;
+        top: -1695px;
+        right: -180px;
+        border-radius: 50% 50% 800% 80px;
+        position: relative;
+        transform: rotate(-132deg) scaleX(-1);
+        z-index: -10;
+      }
