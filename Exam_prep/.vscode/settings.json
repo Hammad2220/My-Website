@@ -2,5 +2,9 @@
     "files.associations": {
         "iostream": "cpp",
         "ostream": "cpp"
+    },
+    "C_Cpp.default.compilerPath": "d:\\winlibs-x86_64-posix-seh-gcc-15.1.0-mingw-w64msvcrt-12.0.0-r1\\mingw64\\bin\\g++.exe",
+    "terminal.integrated.env.windows": {
+        "Path": "d:\\winlibs-x86_64-posix-seh-gcc-15.1.0-mingw-w64msvcrt-12.0.0-r1\\mingw64\\bin;${env:Path}"
     }
 }
